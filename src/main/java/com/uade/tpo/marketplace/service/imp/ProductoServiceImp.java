@@ -185,4 +185,16 @@ public class ProductoServiceImp implements ProductoService {
         producto.setEstado(Estados.ACTIVO);
         productoRepository.save(producto);
     }
+
+    @Override
+    public List<Producto> buscarPorNombreOCategoria(String query) {
+        return productoRepository.findByNombreContainingIgnoreCaseOrCategoria_NombreContainingIgnoreCase(query, query);
+    }
+
+    @Override
+    public List<Producto> findByCategoriaNombre(String nombreCategoria) {
+        return productoRepository.findByCategoria_NombreIgnoreCase(nombreCategoria);
+    }
+
+
 }

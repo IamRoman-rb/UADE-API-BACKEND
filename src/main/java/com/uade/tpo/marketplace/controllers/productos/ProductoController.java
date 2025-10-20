@@ -98,4 +98,18 @@ public class ProductoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Producto>> buscarProductos(@RequestParam("q") String query) {
+        List<Producto> productos = productoService.buscarPorNombreOCategoria(query);
+        return ResponseEntity.ok(productos);
+    }
+
+    @GetMapping("/categoria/nombre/{nombreCategoria}")
+    public ResponseEntity<List<Producto>> getProductosByNombreCategoria(@PathVariable String nombreCategoria) {
+        List<Producto> productos = productoService.findByCategoriaNombre(nombreCategoria);
+        return ResponseEntity.ok(productos);
+    }
+
+
 }

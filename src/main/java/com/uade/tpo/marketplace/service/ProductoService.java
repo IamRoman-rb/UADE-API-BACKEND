@@ -31,4 +31,7 @@ public interface ProductoService {
 
     void desactivarProducto(String id);
     void activarProducto(String id);
+
+    List<Producto> buscarPorNombreOCategoria(String query);
+    List<Producto> findByCategoriaNombre(String nombreCategoria);
 }
