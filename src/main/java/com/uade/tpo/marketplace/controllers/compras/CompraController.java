@@ -31,7 +31,9 @@ public class CompraController {
         return new ResponseEntity<>(nuevaCompra, HttpStatus.CREATED);
     }
 
+    // AGREGAR SEGURIDAD PARA ADMINISTRADORES
     @GetMapping("/")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Compra>> getAllCompras() {
         List<Compra> compras = compraService.findAll();
         return ResponseEntity.ok(compras);
@@ -39,7 +41,7 @@ public class CompraController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Compra> getCompraById(@PathVariable String id ) throws CompraNotFoundException {
-        Compra compra = compraService.findById(id); // El servicio ya lanzará NotFoundException si no existe
+        Compra compra = compraService.findById(id);
         return ResponseEntity.ok(compra);
     }
 
