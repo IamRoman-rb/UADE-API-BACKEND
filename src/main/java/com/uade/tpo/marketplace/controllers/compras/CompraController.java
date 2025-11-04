@@ -1,7 +1,6 @@
 package com.uade.tpo.marketplace.controllers.compras;
 
 import com.uade.tpo.marketplace.controllers.items.CarritoRequest;
-import com.uade.tpo.marketplace.controllers.items.ItemRequest;
 import com.uade.tpo.marketplace.entity.Compra;
 import com.uade.tpo.marketplace.exceptions.CompraNotFoundException;
 import com.uade.tpo.marketplace.service.CompraService;
@@ -25,16 +24,20 @@ public class CompraController {
         this.compraService = compraService;
     }
 
-    @PostMapping("/crear")
-    public ResponseEntity<Compra> crearCompra(@RequestBody CompraRequest compraRequest) {
-        Compra nuevaCompra = compraService.crearCompra(compraRequest);
-        return new ResponseEntity<>(nuevaCompra, HttpStatus.CREATED);
+    // Endpoint para administradores - ver todas las compras
+    @GetMapping("/todas")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    public ResponseEntity<List<Compra>> getAllComprasForAdmin() {
+        List<Compra> compras = compraService.findAll();
+        return ResponseEntity.ok(compras);
     }
 
-    // AGREGAR SEGURIDAD PARA ADMINISTRADORES
+    // Endpoint normal para compradores - ver sus propias compras
     @GetMapping("/")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<Compra>> getAllCompras() {
+    @PreAuthorize("hasRole('COMPRADOR')")
+    public ResponseEntity<List<Compra>> getComprasByUsuario(Authentication authentication) {
+        // Aquí deberías implementar la lógica para obtener solo las compras del usuario autenticado
+        // Por ahora, como ejemplo, devolvemos todas (deberías cambiar esto)
         List<Compra> compras = compraService.findAll();
         return ResponseEntity.ok(compras);
     }

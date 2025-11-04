@@ -62,7 +62,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/compras/checkout/").hasRole("COMPRADOR")
 
                         // COMPRAS - Admin (ver todas las compras)
-                        .requestMatchers(HttpMethod.GET, "/compras/todas/").hasRole("ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.GET, "/compras/todas").hasRole("ADMINISTRADOR")
 
                         // CATEGORIAS - Público (solo lectura)
                         .requestMatchers(HttpMethod.GET, "/categorias/").permitAll()

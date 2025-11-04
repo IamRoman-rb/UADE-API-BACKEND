@@ -48,20 +48,6 @@ public class CompraServiceImp implements CompraService {
     }
 
     @Override
-    public Compra crearCompra(CompraRequest compraRequest) {
-        Usuario usuario = usuarioService.findById(compraRequest.getUsuarioId())
-                .orElseThrow(() -> new UsuarioNotFoundException("Usuario no encontrado con ID: " + compraRequest.getUsuarioId()));
-
-        Compra compra = new Compra();
-        compra.setValor(compraRequest.getValor());
-        compra.setUsuario(usuario);
-        compra.setItems(compraRequest.getItems());
-        compra.setFechaHora(compraRequest.getHora() != null ? compraRequest.getHora() : LocalDateTime.now());
-
-        return compraRepository.save(compra);
-    }
-
-    @Override
     public List<Compra> findAll() {
         return compraRepository.findAll();
     }

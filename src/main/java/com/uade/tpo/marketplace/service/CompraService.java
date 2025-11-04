@@ -10,8 +10,6 @@ import com.uade.tpo.marketplace.exceptions.CompraNotFoundException;
 import java.util.List;
 
 public interface CompraService {
-    Compra crearCompra(CompraRequest compraRequest);
-
     List<Compra> findAll();
 
     List<Compra> findAllByUsuario(Usuario usuario);
