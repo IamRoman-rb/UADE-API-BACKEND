@@ -1,7 +1,7 @@
 package com.uade.tpo.marketplace.service.imp;
 
-import com.uade.tpo.marketplace.entity.Atributo;
 import com.uade.tpo.marketplace.controllers.atributos.AtributoRequest;
+import com.uade.tpo.marketplace.entity.Atributo;
 import com.uade.tpo.marketplace.exceptions.AtributoNotFoundException;
 import com.uade.tpo.marketplace.repository.AtributoRepository;
 import com.uade.tpo.marketplace.service.AtributoService;

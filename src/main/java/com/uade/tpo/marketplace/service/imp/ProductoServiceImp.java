@@ -9,7 +9,6 @@ import com.uade.tpo.marketplace.entity.Producto;
 import com.uade.tpo.marketplace.entity.ValorAtributo;
 import com.uade.tpo.marketplace.enums.Estados;
 import com.uade.tpo.marketplace.exceptions.ProductoDuplicadoException;
-import com.uade.tpo.marketplace.exceptions.ProductoExistenteException;
 import com.uade.tpo.marketplace.repository.AtributoRepository;
 import com.uade.tpo.marketplace.repository.ProductoRepository;
 import com.uade.tpo.marketplace.repository.ValorAtributoProducto;

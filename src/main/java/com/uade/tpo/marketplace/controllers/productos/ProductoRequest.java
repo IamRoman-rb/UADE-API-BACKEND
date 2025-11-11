@@ -1,6 +1,5 @@
 package com.uade.tpo.marketplace.controllers.productos;
 
-import com.uade.tpo.marketplace.controllers.productos.ProductoAtributoRequest;
 import com.uade.tpo.marketplace.entity.Categoria;
 import com.uade.tpo.marketplace.enums.Estados;
 import jakarta.validation.Valid;

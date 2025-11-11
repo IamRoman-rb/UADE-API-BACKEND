@@ -54,12 +54,14 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/productos/todos/").hasRole("ADMINISTRADOR")
 
                         // CARRITO - Solo compradores
-                        .requestMatchers("/carrito/**").hasRole("COMPRADOR")
+                        //.requestMatchers("/carrito/**").hasRole("COMPRADOR")
 
                         // COMPRAS - Solo compradores (sus propias compras)
                         .requestMatchers(HttpMethod.GET, "/compras/").hasRole("COMPRADOR")
                         .requestMatchers(HttpMethod.GET, "/compras/{id}").hasRole("COMPRADOR")
-                        .requestMatchers(HttpMethod.POST, "/compras/checkout/").hasRole("COMPRADOR")
+                        .requestMatchers(HttpMethod.POST, "/compras/checkout").hasRole("COMPRADOR")
+                        .requestMatchers(HttpMethod.POST, "/compras/carrito/agregar").hasRole("COMPRADOR")
+                        .requestMatchers(HttpMethod.POST, "/compras/carrito/**").hasRole("COMPRADOR")
 
                         // COMPRAS - Admin (ver todas las compras)
                         .requestMatchers(HttpMethod.GET, "/compras/todas").hasRole("ADMINISTRADOR")

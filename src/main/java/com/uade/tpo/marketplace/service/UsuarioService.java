@@ -1,6 +1,5 @@
 package com.uade.tpo.marketplace.service;
 
-import com.uade.tpo.marketplace.controllers.usuarios.UsuarioRequest;
 import com.uade.tpo.marketplace.controllers.usuarios.UsuarioUpdateRequest;
 import com.uade.tpo.marketplace.entity.Usuario;
 import com.uade.tpo.marketplace.exceptions.UsuarioDuplicadoException;

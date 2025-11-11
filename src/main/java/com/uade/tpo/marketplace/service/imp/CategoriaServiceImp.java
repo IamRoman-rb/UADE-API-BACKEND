@@ -1,7 +1,7 @@
 package com.uade.tpo.marketplace.service.imp;
 
-import com.uade.tpo.marketplace.entity.Categoria;
 import com.uade.tpo.marketplace.controllers.categorias.CategoriaRequest;
+import com.uade.tpo.marketplace.entity.Categoria;
 import com.uade.tpo.marketplace.exceptions.CategoriaNotFoundException;
 import com.uade.tpo.marketplace.repository.CategoriaRepository;
 import com.uade.tpo.marketplace.service.CategoriaService;

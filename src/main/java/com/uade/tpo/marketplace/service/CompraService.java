@@ -1,15 +1,16 @@
 package com.uade.tpo.marketplace.service;
 
+import com.uade.tpo.marketplace.controllers.compras.CompraRequest;
 import com.uade.tpo.marketplace.controllers.items.CarritoRequest;
-import com.uade.tpo.marketplace.controllers.items.ItemRequest;
 import com.uade.tpo.marketplace.entity.Compra;
 import com.uade.tpo.marketplace.entity.Usuario;
-import com.uade.tpo.marketplace.controllers.compras.CompraRequest;
 import com.uade.tpo.marketplace.exceptions.CompraNotFoundException;
 
 import java.util.List;
 
 public interface CompraService {
+    Compra crearCompra(CompraRequest compraRequest);
+
     List<Compra> findAll();
 
     List<Compra> findAllByUsuario(Usuario usuario);

@@ -3,7 +3,6 @@ package com.uade.tpo.marketplace.controllers.productos;
 import com.uade.tpo.marketplace.entity.Categoria;
 import com.uade.tpo.marketplace.entity.Producto;
 import com.uade.tpo.marketplace.exceptions.ProductoDuplicadoException;
-import com.uade.tpo.marketplace.exceptions.ProductoExistenteException;
 import com.uade.tpo.marketplace.service.ProductoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/productos")
-@CrossOrigin(origins = "http://localhost:5173")
 public class ProductoController {
 
     private final ProductoService productoService;

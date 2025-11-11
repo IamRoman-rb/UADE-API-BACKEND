@@ -3,7 +3,6 @@ package com.uade.tpo.marketplace.controllers.auth;
 import com.uade.tpo.marketplace.controllers.usuarios.UsuarioRequest;
 import com.uade.tpo.marketplace.entity.Usuario;
 import com.uade.tpo.marketplace.enums.Estados;
-import com.uade.tpo.marketplace.enums.Role;
 import com.uade.tpo.marketplace.service.AuthenticationService;
 import com.uade.tpo.marketplace.service.UsuarioService;
 import jakarta.validation.Valid;

@@ -1,7 +1,7 @@
 package com.uade.tpo.marketplace.service;
 
-import com.uade.tpo.marketplace.entity.Atributo;
 import com.uade.tpo.marketplace.controllers.atributos.AtributoRequest;
+import com.uade.tpo.marketplace.entity.Atributo;
 
 import java.util.List;
 

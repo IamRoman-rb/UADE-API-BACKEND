@@ -1,6 +1,5 @@
 package com.uade.tpo.marketplace.controllers.usuarios;
 
-import com.uade.tpo.marketplace.entity.Compra;
 import com.uade.tpo.marketplace.enums.Estados;
 import com.uade.tpo.marketplace.enums.Role;
 import jakarta.validation.constraints.*;
@@ -8,8 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
 
 @Data
 @Builder

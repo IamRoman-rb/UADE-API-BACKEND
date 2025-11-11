@@ -24,27 +24,21 @@ public class CompraController {
         this.compraService = compraService;
     }
 
-    // Endpoint para administradores - ver todas las compras
-    @GetMapping("/todas")
-    @PreAuthorize("hasRole('ADMINISTRADOR')")
-    public ResponseEntity<List<Compra>> getAllComprasForAdmin() {
-        List<Compra> compras = compraService.findAll();
-        return ResponseEntity.ok(compras);
+    @PostMapping("/crear")
+    public ResponseEntity<Compra> crearCompra(@RequestBody CompraRequest compraRequest) {
+        Compra nuevaCompra = compraService.crearCompra(compraRequest);
+        return new ResponseEntity<>(nuevaCompra, HttpStatus.CREATED);
     }
 
-    // Endpoint normal para compradores - ver sus propias compras
     @GetMapping("/")
-    @PreAuthorize("hasRole('COMPRADOR')")
-    public ResponseEntity<List<Compra>> getComprasByUsuario(Authentication authentication) {
-        // Aquí deberías implementar la lógica para obtener solo las compras del usuario autenticado
-        // Por ahora, como ejemplo, devolvemos todas (deberías cambiar esto)
+    public ResponseEntity<List<Compra>> getAllCompras() {
         List<Compra> compras = compraService.findAll();
         return ResponseEntity.ok(compras);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Compra> getCompraById(@PathVariable String id ) throws CompraNotFoundException {
-        Compra compra = compraService.findById(id);
+        Compra compra = compraService.findById(id); // El servicio ya lanzará NotFoundException si no existe
         return ResponseEntity.ok(compra);
     }
 
@@ -54,7 +48,6 @@ public class CompraController {
         return ResponseEntity.noContent().build();
     }
 
-    @PreAuthorize("hasRole('COMPRADOR')")
     @PostMapping("/carrito/agregar")
     public ResponseEntity<Compra> agregarAlCarrito(
             Authentication authentication,
@@ -65,7 +58,6 @@ public class CompraController {
         return ResponseEntity.ok(compra);
     }
 
-    @PreAuthorize("hasRole('COMPRADOR')")
     @PostMapping("/checkout")
     public ResponseEntity<Compra> checkout(Authentication authentication) {
         String email = authentication.getName();

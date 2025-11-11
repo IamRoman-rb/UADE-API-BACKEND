@@ -2,7 +2,7 @@ package com.uade.tpo.marketplace.controllers.usuarios;
 
 import com.uade.tpo.marketplace.entity.Usuario;
 import com.uade.tpo.marketplace.exceptions.UsuarioDuplicadoException;
-import com.uade.tpo.marketplace.exceptions.UsuarioNotFoundException; // Importar la excepción
+import com.uade.tpo.marketplace.exceptions.UsuarioNotFoundException;
 import com.uade.tpo.marketplace.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

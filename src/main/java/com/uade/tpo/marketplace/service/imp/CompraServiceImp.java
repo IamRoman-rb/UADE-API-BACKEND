@@ -1,12 +1,11 @@
 package com.uade.tpo.marketplace.service.imp;
 
+import com.uade.tpo.marketplace.controllers.compras.CompraRequest;
 import com.uade.tpo.marketplace.controllers.items.CarritoRequest;
-import com.uade.tpo.marketplace.controllers.items.ItemRequest;
 import com.uade.tpo.marketplace.entity.Compra;
 import com.uade.tpo.marketplace.entity.Item;
 import com.uade.tpo.marketplace.entity.Producto;
 import com.uade.tpo.marketplace.entity.Usuario;
-import com.uade.tpo.marketplace.controllers.compras.CompraRequest;
 import com.uade.tpo.marketplace.enums.EstadoCompra;
 import com.uade.tpo.marketplace.exceptions.CompraNotFoundException;
 import com.uade.tpo.marketplace.exceptions.UsuarioNotFoundException;
@@ -45,6 +44,20 @@ public class CompraServiceImp implements CompraService {
         this.usuarioRepository = usuarioRepository;
         this.usuarioService = usuarioService;
         this.productoRepository = productoRepository;
+    }
+
+    @Override
+    public Compra crearCompra(CompraRequest compraRequest) {
+        Usuario usuario = usuarioService.findById(compraRequest.getUsuarioId())
+                .orElseThrow(() -> new UsuarioNotFoundException("Usuario no encontrado con ID: " + compraRequest.getUsuarioId()));
+
+        Compra compra = new Compra();
+        compra.setValor(compraRequest.getValor());
+        compra.setUsuario(usuario);
+        compra.setItems(compraRequest.getItems());
+        compra.setFechaHora(compraRequest.getHora() != null ? compraRequest.getHora() : LocalDateTime.now());
+
+        return compraRepository.save(compra);
     }
 
     @Override
