@@ -2,6 +2,7 @@ package com.uade.tpo.marketplace.controllers.compras;
 
 import com.uade.tpo.marketplace.controllers.items.CarritoRequest;
 import com.uade.tpo.marketplace.entity.Compra;
+import com.uade.tpo.marketplace.entity.Usuario;
 import com.uade.tpo.marketplace.exceptions.CompraNotFoundException;
 import com.uade.tpo.marketplace.service.CompraService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/compras")
@@ -31,10 +34,16 @@ public class CompraController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<Compra>> getAllCompras() {
-        List<Compra> compras = compraService.findAll();
-        return ResponseEntity.ok(compras);
+    public ResponseEntity<List<CompraResponse>> listarComprasDeUsuario(@AuthenticationPrincipal Usuario usuario) {
+        List<Compra> compras = compraService.findAllByUsuario(usuario);
+        
+        List<CompraResponse> responseList = compras.stream()
+                .map(CompraResponse::fromEntity)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(responseList);
     }
+    //
 
     @GetMapping("/{id}")
     public ResponseEntity<Compra> getCompraById(@PathVariable String id ) throws CompraNotFoundException {

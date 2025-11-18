@@ -66,8 +66,10 @@ public class CompraServiceImp implements CompraService {
     }
 
     @Override
+    @Transactional
     public List<Compra> findAllByUsuario(Usuario usuario) {
-        return compraRepository.findByUsuario(usuario);
+        List<Compra> compras = compraRepository.findByUsuario(usuario);
+        return compras;
     }
 
     @Override

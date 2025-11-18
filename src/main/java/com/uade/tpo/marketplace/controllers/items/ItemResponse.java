@@ -9,14 +9,21 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ItemResponse {
+    private String id;
+    private String productoId;
     private String productoNombre;
+    private String productoFoto;
     private int cantidad;
     private double precioUnitario;
     private double subtotal;
 
     public static ItemResponse fromEntity(Item item) {
+
         return new ItemResponse(
+                item.getId(),
+                item.getProducto().getId(),
                 item.getProducto().getNombre(),
+                item.getProducto().getFoto(),
                 item.getCantidad(),
                 item.getProducto().getValor(),
                 item.getProducto().getValor() * item.getCantidad()
