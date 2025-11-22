@@ -29,7 +29,8 @@ public class Compra {
     @JsonManagedReference
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @ToString.Exclude
     @JsonManagedReference
     private List<Item> items = new ArrayList<>();
 

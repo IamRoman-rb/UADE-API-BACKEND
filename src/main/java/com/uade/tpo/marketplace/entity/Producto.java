@@ -2,10 +2,7 @@ package com.uade.tpo.marketplace.entity;
 
 import com.uade.tpo.marketplace.enums.Estados;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -49,6 +46,7 @@ public class Producto {
     private Estados estado = Estados.ACTIVO;
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<ValorAtributo> datos = new ArrayList<>();
 
     @Column(nullable = false)

@@ -2,10 +2,7 @@ package com.uade.tpo.marketplace.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -22,16 +19,19 @@ public class Item {
 
     @ManyToOne
     @JoinColumn(name = "producto_id", nullable = false)
+    @ToString.Exclude
     @JsonBackReference
     private Producto producto;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
+    @ToString.Exclude
     @JsonBackReference
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "compra_id", nullable = false) // relación con Compra
+    @JoinColumn(name = "compra_id", nullable = false)
+    @ToString.Exclude
     @JsonBackReference
     private Compra compra;
 

@@ -69,6 +69,7 @@ public class CompraServiceImp implements CompraService {
     @Transactional
     public List<Compra> findAllByUsuario(Usuario usuario) {
         List<Compra> compras = compraRepository.findByUsuario(usuario);
+        System.out.println(compras);
         return compras;
     }
 
