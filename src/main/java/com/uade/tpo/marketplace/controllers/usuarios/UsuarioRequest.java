@@ -28,10 +28,10 @@ public class UsuarioRequest {
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z]).{8,}$",
             message = "La contraseña debe contener al menos una mayúscula, una minúscula, un número y un carácter especial")
     private String password;
-    @NotNull(message = "El DNI es obligatorio")
-    @Min(value = 1000000, message = "El DNI debe ser un número válido")
-    @Max(value = 99999999, message = "El DNI debe ser un número válido")
-    private Integer dni;
+    @NotBlank(message = "El DNI es obligatorio")
+    @Size(min = 7, max = 11, message = "El DNI debe tener entre 7 y 11 dígitos") // Ajustamos el tamaño a String
+    @Pattern(regexp = "^[0-9]+$", message = "El DNI debe contener solo números")
+    private String dni;
     @NotNull(message = "El Role es obligatorio")
     private Role role;
     @NotNull(message = "El Estado es obligatorio")

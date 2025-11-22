@@ -43,7 +43,6 @@ public class CompraController {
 
         return ResponseEntity.ok(responseList);
     }
-    //
 
     @GetMapping("/{id}")
     public ResponseEntity<Compra> getCompraById(@PathVariable String id ) throws CompraNotFoundException {

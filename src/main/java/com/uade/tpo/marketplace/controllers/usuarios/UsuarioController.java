@@ -44,4 +44,11 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+
+    @GetMapping("/email/{email}") // Nueva ruta para buscar por email
+    public Usuario getUsuarioByEmail(@PathVariable String email) {
+        System.out.println("Buscando usuario por email: " + email);
+        return usuarioService.findByEmail(email)
+                .orElseThrow(() -> new UsuarioNotFoundException("Usuario no encontrado con email: " + email));
+    }
 }

@@ -38,7 +38,7 @@ public class Usuario implements UserDetails {
     private String password;
 
     @Column(nullable = false, unique = true)
-    private int dni;
+    private String dni;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

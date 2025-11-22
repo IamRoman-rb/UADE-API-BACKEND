@@ -35,6 +35,7 @@ public class SecurityConfig {
                         // USUARIOS
                         .requestMatchers(HttpMethod.GET, "/usuarios/").hasRole("ADMINISTRADOR")
                         .requestMatchers(HttpMethod.GET, "/usuarios/{id}").hasAnyRole("ADMINISTRADOR", "COMPRADOR")
+                        .requestMatchers(HttpMethod.GET, "/email/{email}").hasAnyRole("ADMINISTRADOR", "COMPRADOR")
                         .requestMatchers(HttpMethod.PUT, "/usuarios/{id}").hasAnyRole("ADMINISTRADOR", "COMPRADOR")
 
                         // PRODUCTOS - Público (solo lectura)

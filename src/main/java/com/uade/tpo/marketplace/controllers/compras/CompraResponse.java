@@ -18,6 +18,7 @@ public class CompraResponse {
     private double total;
     private LocalDateTime fecha;
     private List<ItemResponse> items;
+    private String estado;
 
     public static CompraResponse fromEntity(Compra compra) {
         return new CompraResponse(
@@ -27,7 +28,8 @@ public class CompraResponse {
                 compra.getFechaHora(),
                 compra.getItems().stream()
                         .map(ItemResponse::fromEntity)
-                        .toList()
+                        .toList(),
+                compra.getEstado().name()
         );
     }
 }

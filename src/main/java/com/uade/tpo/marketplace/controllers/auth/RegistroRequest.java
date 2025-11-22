@@ -17,7 +17,7 @@ public class RegistroRequest {
     private String apellido;
     private String email;
     private String password;
-    private int dni;
+    private String dni;
     private Role role;
     private Estados estado;
 }
