@@ -65,6 +65,12 @@ public class CompraController {
         return ResponseEntity.ok(responseList);
     }
 
+    @GetMapping("/todas")
+    public ResponseEntity<List<Compra>> getAllCompras() {
+        List<Compra> compras = compraService.findAll();
+        return ResponseEntity.ok(compras);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Compra> getCompraById(@PathVariable String id ) throws CompraNotFoundException {
         Compra compra = compraService.findById(id); // El servicio ya lanzará NotFoundException si no existe

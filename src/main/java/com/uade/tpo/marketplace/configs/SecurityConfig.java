@@ -59,6 +59,7 @@ public class SecurityConfig {
 
                         // COMPRAS - Solo compradores (sus propias compras)
                         .requestMatchers(HttpMethod.GET, "/compras/").hasRole("COMPRADOR")
+                        .requestMatchers(HttpMethod.GET, "/compras/todas").hasRole("ADMINISTRADOR")
                         .requestMatchers(HttpMethod.GET, "/compras/{id}").hasRole("COMPRADOR")
                         .requestMatchers(HttpMethod.POST, "/compras/checkout").hasRole("COMPRADOR")
                         .requestMatchers(HttpMethod.POST, "/compras/carrito/agregar").hasRole("COMPRADOR")

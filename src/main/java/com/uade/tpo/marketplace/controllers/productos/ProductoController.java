@@ -48,6 +48,7 @@ public class ProductoController {
 
     @GetMapping("/{id}")
     public Producto getProductoById(@PathVariable String id) {
+        System.out.println(id);
         return productoService.findById(id)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
     }
@@ -109,6 +110,5 @@ public class ProductoController {
         List<ProductoResponse> productos = productoService.findByCategoriaNombre(nombreCategoria);
         return ResponseEntity.ok(productos);
     }
-
 
 }
