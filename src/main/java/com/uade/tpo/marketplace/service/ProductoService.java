@@ -1,6 +1,7 @@
 package com.uade.tpo.marketplace.service;
 
 import com.uade.tpo.marketplace.controllers.productos.ProductoRequest;
+import com.uade.tpo.marketplace.controllers.productos.ProductoResponse;
 import com.uade.tpo.marketplace.controllers.productos.ProductoUpdateRequest;
 import com.uade.tpo.marketplace.entity.Categoria;
 import com.uade.tpo.marketplace.entity.Producto;
@@ -13,25 +14,25 @@ public interface ProductoService {
 
     Producto crearProducto(ProductoRequest productoRequest) throws ProductoDuplicadoException;
 
-    List<Producto> getProductos();
+    List<ProductoResponse> getProductos();
 
-    List<Producto> getTodosProductos();
+    List<ProductoResponse> getTodosProductos();
 
     Optional<Producto> findById(String id);
 
     Optional<Producto> findByNombre(String nombre);
 
-    List<Producto> findByCategoria(Categoria categoria);
+    List<ProductoResponse> findByCategoria(Categoria categoria);
 
-    List<Producto> findByCategoriaId(String categoriaId);
+    List<ProductoResponse> findByCategoriaId(String categoriaId);
 
-    List<Producto> findByCategoriaIdWithValidation(String categoriaId);
+    List<ProductoResponse> findByCategoriaIdWithValidation(String categoriaId);
 
     Producto actualizarProducto(String id, ProductoUpdateRequest producto);
 
     void desactivarProducto(String id);
     void activarProducto(String id);
 
-    List<Producto> buscarPorNombreOCategoria(String query);
-    List<Producto> findByCategoriaNombre(String nombreCategoria);
+    List<ProductoResponse> buscarPorNombreOCategoria(String query);
+    List<ProductoResponse> findByCategoriaNombre(String nombreCategoria);
 }

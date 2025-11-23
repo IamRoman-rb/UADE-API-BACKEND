@@ -2,6 +2,7 @@ package com.uade.tpo.marketplace.service.imp;
 
 import com.uade.tpo.marketplace.controllers.productos.ProductoAtributoRequest;
 import com.uade.tpo.marketplace.controllers.productos.ProductoRequest;
+import com.uade.tpo.marketplace.controllers.productos.ProductoResponse;
 import com.uade.tpo.marketplace.controllers.productos.ProductoUpdateRequest;
 import com.uade.tpo.marketplace.entity.Atributo;
 import com.uade.tpo.marketplace.entity.Categoria;
@@ -87,14 +88,17 @@ public class ProductoServiceImp implements ProductoService {
     }
 
     @Override
-    public List<Producto> getProductos() {
-        // Usa el enum directamente
-        return productoRepository.findByEstado(Estados.ACTIVO);
+    public List<ProductoResponse> getProductos() { // <-- Cambio de retorno
+        return productoRepository.findByEstado(Estados.ACTIVO).stream()
+                .map(ProductoResponse::fromEntity)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Producto> getTodosProductos() {
-        return productoRepository.findAll();
+    public List<ProductoResponse> getTodosProductos() { // <-- Cambio de retorno
+        return productoRepository.findAll().stream()
+                .map(ProductoResponse::fromEntity)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -115,21 +119,26 @@ public class ProductoServiceImp implements ProductoService {
     }
 
     @Override
-    public List<Producto> findByCategoria(Categoria categoria) {
+    public List<ProductoResponse> findByCategoria(Categoria categoria) { // <-- Cambio de retorno
         return productoRepository.findByCategoria(categoria).stream()
                 .filter(p -> Estados.ACTIVO.equals(p.getEstado()))
+                .map(ProductoResponse::fromEntity)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Producto> findByCategoriaId(String categoriaId) {
-        return productoRepository.findByCategoriaId(categoriaId);
+    public List<ProductoResponse> findByCategoriaId(String categoriaId) { // <-- Cambio de retorno
+        return productoRepository.findByCategoriaId(categoriaId).stream()
+                .map(ProductoResponse::fromEntity)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Producto> findByCategoriaIdWithValidation(String categoriaId) {
+    public List<ProductoResponse> findByCategoriaIdWithValidation(String categoriaId) { // <-- Cambio de retorno
         Categoria categoria = categoriaService.findById(categoriaId);
-        return productoRepository.findByCategoria(categoria);
+        return productoRepository.findByCategoria(categoria).stream()
+                .map(ProductoResponse::fromEntity)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -186,14 +195,17 @@ public class ProductoServiceImp implements ProductoService {
     }
 
     @Override
-    public List<Producto> buscarPorNombreOCategoria(String query) {
-        return productoRepository.findByNombreContainingIgnoreCaseOrCategoria_NombreContainingIgnoreCase(query, query);
+    public List<ProductoResponse> buscarPorNombreOCategoria(String query) { // <-- Cambio de retorno
+        return productoRepository.findByNombreContainingIgnoreCaseOrCategoria_NombreContainingIgnoreCase(query, query).stream()
+                .map(ProductoResponse::fromEntity)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Producto> findByCategoriaNombre(String nombreCategoria) {
-        return productoRepository.findByCategoria_NombreIgnoreCase(nombreCategoria);
+    public List<ProductoResponse> findByCategoriaNombre(String nombreCategoria) { // <-- Cambio de retorno
+        return productoRepository.findByCategoria_NombreIgnoreCase(nombreCategoria).stream()
+                .map(ProductoResponse::fromEntity)
+                .collect(Collectors.toList());
     }
-
 
 }

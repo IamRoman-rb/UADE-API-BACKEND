@@ -35,14 +35,14 @@ public class ProductoController {
 
 
     @GetMapping("/")
-    public ResponseEntity<List<Producto>> getProductos() {
-        List<Producto> producto = productoService.getProductos();
+    public ResponseEntity<List<ProductoResponse>> getProductos() {
+        List<ProductoResponse> producto = productoService.getProductos();
         return ResponseEntity.ok(producto);
     }
 
     @GetMapping("/todos")
-    public ResponseEntity<List<Producto>> getTodosProductos() {
-        List<Producto> productos = productoService.getTodosProductos();
+    public ResponseEntity<List<ProductoResponse>> getTodosProductos() {
+        List<ProductoResponse> productos = productoService.getTodosProductos();
         return ResponseEntity.ok(productos);
     }
 
@@ -53,15 +53,15 @@ public class ProductoController {
     }
 
     @GetMapping("/categoria/{categoriaId}")
-    public ResponseEntity<List<Producto>> getProductosByCategoriaId(@PathVariable String categoriaId) {
-        List<Producto> productos = productoService.findByCategoriaId(categoriaId);
+    public ResponseEntity<List<ProductoResponse>> getProductosByCategoriaId(@PathVariable String categoriaId) {
+        List<ProductoResponse> productos = productoService.findByCategoriaId(categoriaId);
         return ResponseEntity.ok(productos);
     }
 
     // ENDPOINT 2: Por objeto categoría en el body
     @PostMapping("/categoria")
-    public ResponseEntity<List<Producto>> getProductosByCategoria(@RequestBody Categoria categoria) {
-        List<Producto> productos = productoService.findByCategoria(categoria);
+    public ResponseEntity<List<ProductoResponse>> getProductosByCategoria(@RequestBody Categoria categoria) {
+        List<ProductoResponse> productos = productoService.findByCategoria(categoria);
         return ResponseEntity.ok(productos);
     }
 
@@ -99,14 +99,14 @@ public class ProductoController {
     }
 
     @GetMapping("/buscar")
-    public ResponseEntity<List<Producto>> buscarProductos(@RequestParam("q") String query) {
-        List<Producto> productos = productoService.buscarPorNombreOCategoria(query);
+    public ResponseEntity<List<ProductoResponse>> buscarProductos(@RequestParam("q") String query) {
+        List<ProductoResponse> productos = productoService.buscarPorNombreOCategoria(query);
         return ResponseEntity.ok(productos);
     }
 
     @GetMapping("/categoria/nombre/{nombreCategoria}")
-    public ResponseEntity<List<Producto>> getProductosByNombreCategoria(@PathVariable String nombreCategoria) {
-        List<Producto> productos = productoService.findByCategoriaNombre(nombreCategoria);
+    public ResponseEntity<List<ProductoResponse>> getProductosByNombreCategoria(@PathVariable String nombreCategoria) {
+        List<ProductoResponse> productos = productoService.findByCategoriaNombre(nombreCategoria);
         return ResponseEntity.ok(productos);
     }
 
