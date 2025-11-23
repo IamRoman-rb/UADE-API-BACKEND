@@ -7,6 +7,7 @@ import com.uade.tpo.marketplace.entity.Usuario;
 import com.uade.tpo.marketplace.exceptions.CompraNotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CompraService {
     Compra crearCompra(CompraRequest compraRequest);
@@ -24,4 +25,6 @@ public interface CompraService {
     Compra checkout(String email);
 
     Compra agregarAlCarrito(String usuarioEmail, CarritoRequest carritoRequest);
+
+    Optional<Compra> findCarritoPendienteByUsuario(Usuario usuario);
 }

@@ -175,4 +175,9 @@ public class CompraServiceImp implements CompraService {
 
         return compraRepository.save(compra);
     }
+
+    @Override
+    public Optional<Compra> findCarritoPendienteByUsuario(Usuario usuario) {
+        return compraRepository.findByUsuarioAndEstado(usuario, EstadoCompra.PENDIENTE);
+    }
 }
