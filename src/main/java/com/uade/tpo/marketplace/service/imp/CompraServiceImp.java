@@ -98,7 +98,7 @@ public class CompraServiceImp implements CompraService {
         Usuario usuario = usuarioRepository.findByEmail(usuarioEmail)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        // Buscar carrito existente o crear uno nuevo
+        // 1. Buscar carrito existente o crear uno nuevo
         Compra carrito = compraRepository.findByUsuarioAndEstado(usuario, EstadoCompra.PENDIENTE)
                 .orElseGet(() -> {
                     Compra nuevaCompra = new Compra();
@@ -110,31 +110,42 @@ public class CompraServiceImp implements CompraService {
                     return compraRepository.save(nuevaCompra);
                 });
 
-        // Buscar el producto por ID usando productoId del request
+        // Buscar el producto por ID
         Producto producto = productoRepository.findById(carritoRequest.getProductoId())
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + carritoRequest.getProductoId()));
 
-        // Verificar si el item ya existe en el carrito
-        Optional<Item> itemExistente = carrito.getItems().stream()
+        // Buscar si el item ya existe en el carrito
+        Optional<Item> itemExistenteOptional = carrito.getItems().stream()
                 .filter(item -> item.getProducto().getId().equals(producto.getId()))
                 .findFirst();
 
-        if (itemExistente.isPresent()) {
-            // Actualizar cantidad del item existente
-            Item item = itemExistente.get();
-            item.setCantidad(item.getCantidad() + carritoRequest.getCantidad());
+        if (itemExistenteOptional.isPresent()) {
+            Item item = itemExistenteOptional.get();
+            int nuevaCantidad = item.getCantidad() + carritoRequest.getCantidad();
+
+            if (nuevaCantidad > 0) {
+                // Caso 1: Actualizar cantidad
+                item.setCantidad(nuevaCantidad);
+            } else {
+                // Caso 2: Eliminar Item del carrito (cantidad <= 0)
+                carrito.getItems().remove(item);
+                // El item se eliminará de la base de datos gracias a 'orphanRemoval = true' en Compra.items
+            }
         } else {
-            // Crear nuevo item y asignarle todas las propiedades necesarias
-            Item item = new Item();
-            item.setProducto(producto);
-            item.setCantidad(carritoRequest.getCantidad());
-            item.setCompra(carrito);
-            item.setUsuario(usuario);
-            item.setValor(producto.getValor());
-            carrito.getItems().add(item);
+            // Solo agregar si la cantidad es positiva (previniendo agregar items con cantidad negativa desde el inicio)
+            if (carritoRequest.getCantidad() > 0) {
+                // Caso 3: Crear nuevo item
+                Item item = new Item();
+                item.setProducto(producto);
+                item.setCantidad(carritoRequest.getCantidad());
+                item.setCompra(carrito);
+                item.setUsuario(usuario);
+                item.setValor(producto.getValor());
+                carrito.getItems().add(item);
+            }
         }
 
-        // Calcular total
+        // 3. Recalcular total
         float total = (float) carrito.getItems().stream()
                 .mapToDouble(item -> item.getCantidad() * item.getProducto().getValor())
                 .sum();
