@@ -48,9 +48,7 @@ public class ProductoController {
 
     @GetMapping("/{id}")
     public Producto getProductoById(@PathVariable String id) {
-        System.out.println(id);
-        return productoService.findById(id)
-                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+        return productoService.findById(id);
     }
 
     @GetMapping("/categoria/{categoriaId}")

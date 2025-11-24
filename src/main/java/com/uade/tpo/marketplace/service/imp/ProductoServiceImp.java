@@ -102,11 +102,10 @@ public class ProductoServiceImp implements ProductoService {
     }
 
     @Override
-    public Optional<Producto> findById(String id) {
-        Optional<Producto> producto = productoRepository.findById(id);
-        if (producto.isPresent() && !"ACTIVO".equals(producto.get().getEstado())) {
-            return Optional.empty();
-        }
+    public Producto findById(String id) {
+        Producto producto = productoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
         return producto;
     }
 

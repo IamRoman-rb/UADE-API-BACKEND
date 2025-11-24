@@ -17,8 +17,7 @@ public interface ProductoService {
     List<ProductoResponse> getProductos();
 
     List<ProductoResponse> getTodosProductos();
-
-    Optional<Producto> findById(String id);
+    Producto findById(String id);
 
     Optional<Producto> findByNombre(String nombre);
 
