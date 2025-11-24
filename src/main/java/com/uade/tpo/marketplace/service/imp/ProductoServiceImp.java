@@ -11,6 +11,7 @@ import com.uade.tpo.marketplace.entity.ValorAtributo;
 import com.uade.tpo.marketplace.enums.Estados;
 import com.uade.tpo.marketplace.exceptions.ProductoDuplicadoException;
 import com.uade.tpo.marketplace.repository.AtributoRepository;
+import com.uade.tpo.marketplace.repository.CategoriaRepository;
 import com.uade.tpo.marketplace.repository.ProductoRepository;
 import com.uade.tpo.marketplace.repository.ValorAtributoProducto;
 import com.uade.tpo.marketplace.service.CategoriaService;
@@ -28,11 +29,13 @@ public class ProductoServiceImp implements ProductoService {
 
     private final ProductoRepository productoRepository;
     private final AtributoRepository atributoRepository;
+    private final CategoriaRepository categoriaRepository;
     private final CategoriaService categoriaService;
 
-    public ProductoServiceImp(ProductoRepository productoRepository, ValorAtributoProducto valorAtributoProductoRepository, AtributoRepository atributoRepository, CategoriaService categoriaService) {
+    public ProductoServiceImp(ProductoRepository productoRepository, ValorAtributoProducto valorAtributoProductoRepository, AtributoRepository atributoRepository, CategoriaRepository categoriaRepository, CategoriaService categoriaService) {
         this.productoRepository = productoRepository;
         this.atributoRepository = atributoRepository;
+        this.categoriaRepository = categoriaRepository;
         this.categoriaService = categoriaService;
     }
 
@@ -144,7 +147,6 @@ public class ProductoServiceImp implements ProductoService {
     public Producto actualizarProducto(String id, ProductoUpdateRequest updateRequest) {
         return productoRepository.findById(id)
                 .map(productoExistente -> {
-                    // Verificar si el nombre fue cambiado
                     if (updateRequest.getNombre() != null &&
                             !productoExistente.getNombre().equalsIgnoreCase(updateRequest.getNombre())) {
 
@@ -157,7 +159,6 @@ public class ProductoServiceImp implements ProductoService {
                         productoExistente.setNombre(updateRequest.getNombre());
                     }
 
-                    // Actualizar solo los campos que vienen en el request (no nulos)
                     if (updateRequest.getDescripcion() != null) {
                         productoExistente.setDescripcion(updateRequest.getDescripcion());
                     }
@@ -169,6 +170,13 @@ public class ProductoServiceImp implements ProductoService {
                     }
                     if (updateRequest.getDescuento() != null && updateRequest.getDescuento() >= 0) {
                         productoExistente.setDescuento(updateRequest.getDescuento());
+                    }
+                    if (updateRequest.getCategoria() != null && updateRequest.getCategoria().getId() != null) {
+
+                        Categoria categoria = categoriaRepository.findById(updateRequest.getCategoria().getId())
+                                .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
+
+                        productoExistente.setCategoria(categoria);
                     }
 
                     return productoRepository.save(productoExistente);
